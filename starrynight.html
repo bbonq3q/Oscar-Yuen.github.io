@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Night - Masterpiece Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #34495e;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .artwork-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-bottom: 3rem;
+            border-radius: 10px;
+        }
+
+        .artwork-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .artwork-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .back-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Artwork Details */
+        .artwork-details {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .detail-image {
+            width: 45%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .detail-info {
+            width: 50%;
+        }
+
+        .detail-info h2 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .detail-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .meta-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .meta-item h4 {
+            color: #7f8c8d;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-item p {
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .story-section {
+            margin-top: 2rem;
+        }
+
+        .story-section h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .story-section p {
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .artwork-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .detail-header {
+                flex-direction: column;
+            }
+            
+            .detail-image, .detail-info {
+                width: 100%;
+            }
+            
+            .detail-image {
+                margin-bottom: 1.5rem;
+            }
+            
+            .detail-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-palette"></i> Masterpiece Gallery
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="starrynight.html">Starry Night</a></li>
+                    <li><a href="monalisa.html">Mona Lisa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Artwork Hero Section -->
+    <section class="artwork-hero">
+        <div class="container">
+            <h1>Starry Night</h1>
+            <p>Vincent van Gogh • 1889</p>
+            <a href="index.html" class="back-btn">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Artwork Details -->
+    <section class="container">
+        <div class="artwork-details">
+            <div class="detail-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night" class="detail-image">
+                <div class="detail-info">
+                    <h2>Starry Night</h2>
+                    <span class="artist">Vincent van Gogh (1889)</span>
+                    
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <h4>Created</h4>
+                            <p>June 1889</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Period</h4>
+                            <p>Post-Impressionism</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Medium</h4>
+                            <p>Oil on canvas</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Dimensions</h4>
+                            <p>73.7 cm × 92.1 cm</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Location</h4>
+                            <p>Museum of Modern Art, New York</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Created in</h4>
+                            <p>Saint-Rémy-de-Provence, France</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <h3>Story & Origin</h3>
+                <p>Starry Night was painted by Vincent van Gogh in June 1889, during his stay at the Saint-Paul-de-Mausole asylum in Saint-Rémy-de-Provence, France. Van Gogh had voluntarily admitted himself to the asylum after mutilating his own ear during a psychotic episode. Despite his mental turmoil, this period was one of his most productive, during which he created some of his most celebrated works.</p>
+                
+                <p>The painting depicts the view from the east-facing window of his asylum room just before sunrise, with the addition of an imaginary village. While the painting is often interpreted as a reflection of van Gogh's turbulent state of mind, art historians have noted that it also demonstrates his ongoing interest in astronomy. A 1985 study revealed that the moon, stars, and Venus were in positions that closely matched their actual placement in the sky on June 19, 1889.</p>
+                
+                <p>Van Gogh wrote to his brother Theo about the painting: "This morning I saw the countryside from my window a long time before sunrise, with nothing but the morning star, which looked very big." Despite its current fame, van Gogh considered The Starry Night a failure, stating in a letter that he had "returned to the ideas I had in the country," likely referring to his ongoing fascination with the night sky.</p>
+                
+                <p>The painting's swirling, turbulent style was revolutionary for its time and has since become one of the most recognizable images in Western art. The cypress tree connecting earth and sky is thought to symbolize death and van Gogh's preoccupation with ending his own life, which he would do just over a year later.</p>
+                
+                <p>Today, Starry Night is part of the permanent collection of the Museum of Modern Art in New York City, which acquired it in 1941. It has become an iconic representation of artistic genius intertwined with mental illness and continues to captivate viewers with its emotional intensity and technical innovation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-palette"></i> Masterpiece Gallery
+                </div>
+                <p>Exploring the stories behind the world's most famous artworks</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
