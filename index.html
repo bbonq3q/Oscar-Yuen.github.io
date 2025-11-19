@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterpiece Gallery: Starry Night & Mona Lisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #34495e;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cta-button:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Artworks Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .artworks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .artwork-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .artwork-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--light);
+        }
+
+        .artwork-content {
+            padding: 1.5rem;
+        }
+
+        .artwork-content h2 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .artist {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .artwork-content p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .details-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .details-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Details Section */
+        .artwork-details {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .detail-image {
+            width: 45%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .detail-info {
+            width: 50%;
+        }
+
+        .detail-info h2 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .detail-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .meta-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .meta-item h4 {
+            color: #7f8c8d;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-item p {
+            color: var(--dark);
+            font-weight: bold;
+        }
+
+        .story-section {
+            margin-top: 2rem;
+        }
+
+        .story-section h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .story-section p {
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-icons {
+            margin: 1rem 0;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .detail-header {
+                flex-direction: column;
+            }
+            
+            .detail-image, .detail-info {
+                width: 100%;
+            }
+            
+            .detail-image {
+                margin-bottom: 1.5rem;
+            }
+            
+            .detail-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-palette"></i> Masterpiece Gallery
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#starry-night">Starry Night</a></li>
+                    <li><a href="#mona-lisa">Mona Lisa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Discover Timeless Masterpieces</h1>
+            <p>Explore the fascinating stories and origins behind Van Gogh's Starry Night and Da Vinci's Mona Lisa</p>
+            <a href="#artworks" class="cta-button">Explore Artworks</a>
+        </div>
+    </section>
+
+    <!-- Artworks Section -->
+    <section class="container" id="artworks">
+        <h2 class="section-title">Featured Masterpieces</h2>
+        <div class="artworks">
+            <!-- Starry Night Card -->
+            <div class="artwork-card" id="starry-night">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night" class="artwork-image">
+                <div class="artwork-content">
+                    <h2>Starry Night</h2>
+                    <span class="artist">Vincent van Gogh</span>
+                    <p>Starry Night is an iconic oil painting created by Dutch post-impressionist painter Vincent van Gogh in 1889.</p>
+                    <a href="#" class="details-btn" onclick="showDetails('starry-night-details')">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Mona Lisa Card -->
+            <div class="artwork-card" id="mona-lisa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" alt="Mona Lisa" class="artwork-image">
+                <div class="artwork-content">
+                    <h2>Mona Lisa</h2>
+                    <span class="artist">Leonardo da Vinci</span>
+                    <p>The Mona Lisa is a half-length portrait painting by Italian Renaissance artist Leonardo da Vinci.</p>
+                    <a href="#" class="details-btn" onclick="showDetails('mona-lisa-details')">View Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Starry Night Details -->
+        <div id="starry-night-details" class="artwork-details">
+            <div class="detail-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night" class="detail-image">
+                <div class="detail-info">
+                    <h2>Starry Night</h2>
+                    <span class="artist">Vincent van Gogh (1889)</span>
+                    
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <h4>Created</h4>
+                            <p>June 1889</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Period</h4>
+                            <p>Post-Impressionism</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Medium</h4>
+                            <p>Oil on canvas</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Dimensions</h4>
+                            <p>73.7 cm × 92.1 cm</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Location</h4>
+                            <p>Museum of Modern Art, New York</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Created in</h4>
+                            <p>Saint-Rémy-de-Provence, France</p>
+                        </div>
+                    </div>
+                    
+                    <button class="close-btn" onclick="hideDetails('starry-night-details')">Close</button>
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <h3>Story & Origin</h3>
+                <p>Starry Night was painted by Vincent van Gogh in June 1889, during his stay at the Saint-Paul-de-Mausole asylum in Saint-Rémy-de-Provence, France. Van Gogh had voluntarily admitted himself to the asylum after mutilating his own ear during a psychotic episode. Despite his mental turmoil, this period was one of his most productive, during which he created some of his most celebrated works.</p>
+                
+                <p>The painting depicts the view from the east-facing window of his asylum room just before sunrise, with the addition of an imaginary village. While the painting is often interpreted as a reflection of van Gogh's turbulent state of mind, art historians have noted that it also demonstrates his ongoing interest in astronomy. A 1985 study revealed that the moon, stars, and Venus were in positions that closely matched their actual placement in the sky on June 19, 1889.</p>
+                
+                <p>Van Gogh wrote to his brother Theo about the painting: "This morning I saw the countryside from my window a long time before sunrise, with nothing but the morning star, which looked very big." Despite its current fame, van Gogh considered The Starry Night a failure, stating in a letter that he had "returned to the ideas I had in the country," likely referring to his ongoing fascination with the night sky.</p>
+                
+                <p>The painting's swirling, turbulent style was revolutionary for its time and has since become one of the most recognizable images in Western art. The cypress tree connecting earth and sky is thought to symbolize death and van Gogh's preoccupation with ending his own life, which he would do just over a year later.</p>
+                
+                <p>Today, Starry Night is part of the permanent collection of the Museum of Modern Art in New York City, which acquired it in 1941. It has become an iconic representation of artistic genius intertwined with mental illness and continues to captivate viewers with its emotional intensity and technical innovation.</p>
+            </div>
+        </div>
+        
+        <!-- Mona Lisa Details -->
+        <div id="mona-lisa-details" class="artwork-details">
+            <div class="detail-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" alt="Mona Lisa" class="detail-image">
+                <div class="detail-info">
+                    <h2>Mona Lisa</h2>
+                    <span class="artist">Leonardo da Vinci (c. 1503–1506)</span>
+                    
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <h4>Created</h4>
+                            <p>c. 1503–1506</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Period</h4>
+                            <p>High Renaissance</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Medium</h4>
+                            <p>Oil on poplar panel</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Dimensions</h4>
+                            <p>77 cm × 53 cm</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Location</h4>
+                            <p>Louvre Museum, Paris</p>
+                        </div>
+                        <div class="meta-item">
+                            <h4>Created in</h4>
+                            <p>Florence and France</p>
+                        </div>
+                    </div>
+                    
+                    <button class="close-btn" onclick="hideDetails('mona-lisa-details')">Close</button>
+                </div>
+            </div>
+            
+            <div class="story-section">
+                <h3>Story & Origin</h3>
+                <p>The Mona Lisa is arguably the most famous painting in the world, created by the renowned Renaissance artist Leonardo da Vinci. The subject is widely believed to be Lisa Gherardini, the wife of Florentine merchant Francesco del Giocondo, which is why the painting is also known as La Gioconda. The work was likely commissioned to celebrate the birth of their second son or the purchase of their new home.</p>
+                
+                <p>Leonardo began the portrait in Florence around 1503 and continued working on it for several years, taking it with him when he moved to France in 1516. He kept the painting until his death in 1519, after which it was acquired by King Francis I of France. The Mona Lisa became part of the French royal collection and eventually found its home in the Louvre Museum after the French Revolution.</p>
+                
+                <p>The painting is renowned for its technical innovations, particularly Leonardo's use of sfumato—a technique of blending colors and tones so subtly that they appear to melt into one another. This creates the famous ambiguous smile that seems to change depending on the viewer's perspective. The landscape background, with its hazy mountains and winding rivers, demonstrates Leonardo's mastery of atmospheric perspective.</p>
+                
+                <p>The Mona Lisa's fame skyrocketed in 1911 when it was stolen from the Louvre by Vincenzo Peruggia, an Italian patriot who believed the painting should be returned to Italy. The theft made international headlines, and the painting's recovery two years later turned it into a global icon. During its absence, more people went to see the empty space where it had hung than had visited the painting in the previous 12 years.</p>
+                
+                <p>Today, the Mona Lisa is displayed in a climate-controlled, bulletproof glass case in the Louvre's Salle des États. It attracts millions of visitors annually, who often find themselves surprised by its relatively small size. The painting has been the subject of extensive scientific analysis, conservation efforts, and countless interpretations, securing its status as an enduring symbol of Western art and human creativity.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-palette"></i> Masterpiece Gallery
+                </div>
+                <p>Exploring the stories behind the world's most famous artworks</p>
+         
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Show artwork details
+        function showDetails(detailId) {
+            // Hide all details
+            const allDetails = document.querySelectorAll('.artwork-details');
+            allDetails.forEach(detail => {
+                detail.style.display = 'none';
+            });
+            
+            // Show selected details
+            const detailElement = document.getElementById(detailId);
+            if (detailElement) {
+                detailElement.style.display = 'block';
+                
+                // Scroll to details
+                detailElement.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            return false; // Prevent default link behavior
+        }
+        
+        // Hide artwork details
+        function hideDetails(detailId) {
+            const detailElement = document.getElementById(detailId);
+            if (detailElement) {
+                detailElement.style.display = 'none';
+            }
+        }
+        
+        // Hide all details on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const allDetails = document.querySelectorAll('.artwork-details');
+            allDetails.forEach(detail => {
+                detail.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
