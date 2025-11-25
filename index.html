@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masterpiece Gallery: Home</title>
@@ -31,7 +31,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px; /* 增加容器宽度 */
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -160,9 +160,11 @@
 
         .artworks {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            /* 关键修改：使用4列布局，每列最小250px */
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
+            gap: 1.5rem; /* 减少间距 */
             margin-bottom: 4rem;
+            justify-content: center;
         }
 
         .artwork-card {
@@ -172,6 +174,7 @@
             box-shadow: var(--shadow);
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            min-width: 250px; /* 确保卡片有最小宽度 */
         }
 
         .artwork-card:hover {
@@ -181,42 +184,46 @@
 
         .artwork-image {
             width: 100%;
-            height: 300px;
+            height: 200px; /* 降低图片高度 */
             object-fit: cover;
             border-bottom: 3px solid var(--light);
         }
 
         .artwork-content {
-            padding: 1.5rem;
+            padding: 1rem; /* 减少内边距 */
         }
 
         .artwork-content h2 {
             color: var(--dark);
             margin-bottom: 0.5rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem; /* 减小字体大小 */
         }
 
         .artist {
             color: #7f8c8d;
             font-style: italic;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: block;
+            font-size: 0.9rem;
         }
 
         .artwork-content p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: #555;
+            font-size: 0.9rem; /* 减小字体大小 */
+            line-height: 1.4;
         }
 
         .details-btn {
             display: inline-block;
             background: var(--secondary);
             color: white;
-            padding: 0.7rem 1.5rem;
+            padding: 0.6rem 1.2rem; /* 减小按钮大小 */
             border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
             transition: background 0.3s;
+            font-size: 0.9rem;
         }
 
         .details-btn:hover {
@@ -238,7 +245,13 @@
             align-items: center;
         }
 
-        /* Responsive Design */
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .artworks {
+                grid-template-columns: repeat(2, 1fr); /* 中等屏幕显示2列 */
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -246,6 +259,26 @@
             
             .hero h1 {
                 font-size: 2.5rem;
+            }
+
+            .artworks {
+                grid-template-columns: 1fr; /* 小屏幕显示1列 */
+            }
+
+            .cta-button {
+                display: block;
+                margin: 10px auto;
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .artwork-card {
+                min-width: 100%;
             }
         }
     </style>
@@ -256,14 +289,14 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <i class="fas fa-palette"></i> Masterpiece Gallery
+                    <i class="fas fa-palette"></i><ul class="nav-links"><li><a href="index.html">Masterpiece Gallery</a></li></ul>
                 </div>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="starrynight.html">Starry Night</a></li>
                     <li><a href="monalisa.html">Mona Lisa</a></li>
-                    <li><a href="#the-scream">The Scream</a></li>
-                    <li><a href="#shot-sage-blue-marilyn">Shot Sage Blue Marilyn</a></li>
+                    <li><a href="thescream.html">The Scream</a></li>
+                    <li><a href="shotsagebluemarilyn.html">Shot Sage Blue Marilyn</a></li>
                 </ul>
             </nav>
         </div>
@@ -273,7 +306,7 @@
     <section class="hero">
         <div class="container">
             <h1>Discover Timeless Masterpieces</h1>
-            <p>Explore the fascinating stories and origins behind Van Gogh's Starry Night and Da Vinci's Mona Lisa, Munch's The Scream, and Warhol's Shot Sage Blue Marilyn</p>
+            <p>Explore the fascinating stories and origins behind the billion-dollar art-pieces by Vincent van Gogh, Leonardo da Vinci, Edvard Munch, and Andy Warhol!</p>
             <div>
                 <a href="starrynight.html" class="cta-button">Explore Starry Night</a>
                 <a href="monalisa.html" class="cta-button">Explore Mona Lisa</a>
